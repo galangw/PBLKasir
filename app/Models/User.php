@@ -41,4 +41,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function historyTransaksi()
+    {
+        return $this->belongsToMany(User::class, 'user_history_transaksis', 'user_id', 'history_transaksi_id');
+    }
 }
