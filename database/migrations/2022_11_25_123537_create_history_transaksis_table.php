@@ -15,6 +15,9 @@ return new class extends Migration
     {
         Schema::create('history_transaksis', function (Blueprint $table) {
             $table->id('history_transaksi_id');
+            $table->foreignId('user_id')->references('id')->on('users')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
             $table->integer('jumlah');
             $table->integer('total');
             $table->integer('laba');

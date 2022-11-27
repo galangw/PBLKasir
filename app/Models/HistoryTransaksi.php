@@ -15,6 +15,6 @@ class HistoryTransaksi extends Model
     }
     public function user()
     {
-        return $this->belongsToMany(User::class, 'user_history_transaksis', 'history_transaksi_id', 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
