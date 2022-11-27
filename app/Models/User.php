@@ -43,6 +43,6 @@ class User extends Authenticatable
     ];
     public function historyTransaksi()
     {
-        return $this->belongsToMany(User::class, 'user_history_transaksis', 'user_id', 'history_transaksi_id');
+        return $this->hasMany(HistoryTransaksi::class, 'user_id');
     }
 }
