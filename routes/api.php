@@ -24,3 +24,4 @@ Route::middleware(['auth:sanctum', 'cekemail'])->group(function () {
     });
 });
 Route::post('login', [AuthController::class, 'login']);
+Route::post('tambahkaryawan', [AuthController::class, 'register']);
