@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Events\VerifikasiEmail;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use DateTime;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -25,6 +28,12 @@ class AuthController extends Controller
             ]);
         }
         $user = User::where('email', Auth::user()->email)->first();
+        if ($user->email_verified_at == null) {
+            return response()->json([
+                'status'   =>  'Gagal',
+                'message'   =>  'Email Belum Diverifikasi',
+            ]);
+        }
         $token = $user->createToken('token-auth')->plainTextToken;
         $respon = [
             'status' => 'success',
@@ -33,6 +42,7 @@ class AuthController extends Controller
             'content' => [
                 'status_code' => 200,
                 'access_token' => $token,
+                'role'  => $user->role,
                 'token_type' => 'Bearer',
             ]
         ];
@@ -49,10 +59,10 @@ class AuthController extends Controller
         $validated['password'] = Hash::make($validated['password']);
         try {
             $user = User::create($validated);
+            Event::dispatch(new VerifikasiEmail($user));
             return response()->json([
                 'status'    =>  'sukses',
-                'message'   =>  'Sukes Register ' . $validated['email'],
-                'token'     => $user->createToken('auth-toke')->plainTextToken
+                'message'   =>  'Sukes Register ' . $validated['email'] . ' Silahkan Check Email untuk verfikasi',
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
@@ -60,6 +70,16 @@ class AuthController extends Controller
                 'message'   =>  $th->getMessage()
             ]);
         }
+    }
+    public function verifikasi($email)
+    {
+        $user = User::where('email', $email)->first();
+        $user->email_verified_at = now();
+        $user->save();
+        return response()->json([
+            'status'    =>  'sukses',
+            'message'   =>  'Sukes Verfikasi',
+        ], 200);
     }
     public function logout(Request $request)
     {
