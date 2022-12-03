@@ -9,8 +9,9 @@ class BarangMasuk extends Model
 {
     use HasFactory;
     protected $primaryKey = "barang_masuk_id";
+    protected $guarded = ['barang_masuk_id'];
     public function barang()
     {
-        return $this->belongsTo(Barang::class, 'barang_masuk_id');
+        return $this->belongsTo(Barang::class, 'barang_id');
     }
 }

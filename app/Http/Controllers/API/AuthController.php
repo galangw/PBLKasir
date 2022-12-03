@@ -28,12 +28,6 @@ class AuthController extends Controller
             ]);
         }
         $user = User::where('email', Auth::user()->email)->first();
-        if ($user->email_verified_at == null) {
-            return response()->json([
-                'status'   =>  'Gagal',
-                'message'   =>  'Email Belum Diverifikasi',
-            ]);
-        }
         $token = $user->createToken('token-auth')->plainTextToken;
         $respon = [
             'status' => 'success',
@@ -48,7 +42,7 @@ class AuthController extends Controller
         ];
         return response()->json($respon, 200);
     }
-    public function register(Request $request)
+    public function tambahKaryawan(Request $request)
     {
         $validate = Validator::make($request->all(), [
             'name'      =>  'required',
@@ -59,10 +53,10 @@ class AuthController extends Controller
         $validated['password'] = Hash::make($validated['password']);
         try {
             $user = User::create($validated);
-            Event::dispatch(new VerifikasiEmail($user));
+            // Event::dispatch(new VerifikasiEmail($user));
             return response()->json([
                 'status'    =>  'sukses',
-                'message'   =>  'Sukes Register ' . $validated['email'] . ' Silahkan Check Email untuk verfikasi',
+                'message'   =>  'Sukes Register ' . $validated['email'],
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([

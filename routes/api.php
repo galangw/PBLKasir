@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\BarangController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,13 +16,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['auth:sanctum', 'cekemail'])->group(function () {
+Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
     Route::get('/home', function () {
         return "halo";
     });
+    Route::get('/barang', [BarangController::class, 'semuaBarang']);
+    Route::post('tambahkaryawan', [AuthController::class, 'tambahKaryawan']);
+    Route::post('tambahbarang', [BarangController::class, 'tambahBarang']);
+    Route::put('updateBarang/{barang}', [BarangController::class, 'updateBarang']);
+    Route::delete('hapusBarang/{barang}', [BarangController::class, 'hapusBarang']);
+    Route::post('tambahStok/{barang}', [BarangController::class, 'tambahStok']);
 });
 Route::post('login', [AuthController::class, 'login']);
-Route::post('tambahkaryawan', [AuthController::class, 'register']);
