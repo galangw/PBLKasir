@@ -9,6 +9,7 @@ class Barang extends Model
 {
     use HasFactory;
     protected $primaryKey = "barang_id";
+    protected $guarded = ['barang_id'];
 
     public function stok()
     {
@@ -16,15 +17,15 @@ class Barang extends Model
     }
     public function supplier()
     {
-        return $this->belongsTo(Supplier::class, 'supplier_id');
+        return $this->belongsTo(Supplier::class, 'barang_id');
     }
     public function kategori()
     {
-        return $this->hasOne(Kategori::class, 'kategori_id');
+        return $this->belongsTo(Kategori::class, 'barang_id');
     }
     public function barangMasuk()
     {
-        return $this->hasMany(BarangMasuk::class, 'barang_masuk_id');
+        return $this->hasMany(BarangMasuk::class, 'barang_id');
     }
     public function historyTransaksi()
     {

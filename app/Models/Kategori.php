@@ -9,8 +9,10 @@ class Kategori extends Model
 {
     use HasFactory;
     protected $primaryKey = "kategori_id";
+    protected $guarded = ['kategori_id'];
+
     public function barang()
     {
-        return $this->belongsTo(Barang::class, 'kategori_id');
+        return $this->hasOne(Barang::class, 'kategori_id');
     }
 }

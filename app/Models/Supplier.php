@@ -9,6 +9,7 @@ class Supplier extends Model
 {
     use HasFactory;
     protected $primaryKey = "supplier_id";
+    protected $guarded = ['supplier_id'];
     public function barang()
     {
         return $this->hasMany(Barang::class, 'supplier_id');

@@ -1,0 +1,103 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Barang;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
+class BarangController extends Controller
+{
+    public function semuaBarang()
+    {
+        return response()->json([
+            'status' => true,
+            'data'  => Barang::with(['stok', 'supplier', 'kategori', 'barangMasuk'])->get()
+        ]);
+    }
+    public function tambahBarang(Request $request)
+    {
+        $validate = Validator::make($request->all(), [
+            'kategori_id'   => 'required',
+            'supplier_id'   => 'required',
+            'nama'          => 'required',
+            'harga_beli'    => 'required',
+            'harga_jual'    => 'required',
+            'stok'          => 'required'
+        ]);
+        $validated = $validate->validated();
+        unset($validated['stok']);
+        try {
+            $barang = Barang::create($validated);
+            $barang->stok()->create(['jumlah' => $request->stok]);
+            return response()->json([
+                'status'   =>  true,
+                'message'   =>  "Sukses Tambah Barang",
+            ]);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'status'   =>  false,
+                'message'   =>  $e->getMessage(),
+            ]);
+        }
+    }
+    public function updateBarang(Barang $barang, Request $request)
+    {
+        $validate = Validator::make($request->all(), [
+            'kategori_id'   => 'required',
+            'supplier_id'   => 'required',
+            'nama'          => 'required',
+            'harga_beli'    => 'required',
+            'harga_jual'    => 'required',
+        ]);
+        $validated = $validate->validated();
+        try {
+            $barang->update($validated);
+            return response()->json([
+                'status'   =>  true,
+                'message'   =>  "Sukses Update Barang",
+            ]);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'status'   =>  false,
+                'message'   =>  $e->getMessage(),
+            ]);
+        }
+    }
+    public function hapusBarang(Barang $barang)
+    {
+        try {
+            $barang->delete();
+            return response()->json([
+                'status'   =>  true,
+                'message'   =>  "Sukses hapus Barang",
+            ]);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'status'   =>  false,
+                'message'   =>  $e->getMessage(),
+            ]);
+        }
+    }
+    public function tambahStok(Barang $barang, Request $request)
+    {
+        $validate = Validator::make($request->all(), [
+            'stok'   => 'required',
+        ]);
+        $validated = $validate->validated();
+        try {
+            $barang->barangMasuk()->create([
+                'jumlah' => $request->stok
+            ]);
+            return response()->json([
+                'status'   =>  true,
+                'message'   =>  "Sukses Tambah Stok Barang",
+            ]);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'status'   =>  false,
+                'message'   =>  $e->getMessage(),
+            ]);
+        }
+    }
+}

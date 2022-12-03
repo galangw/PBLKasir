@@ -9,6 +9,7 @@ class Stok extends Model
 {
     use HasFactory;
     protected $primaryKey = "stok_id";
+    protected $guarded = ['stok_id'];
     public function barang()
     {
         return $this->belongsTo(Barang::class, 'barang_id');

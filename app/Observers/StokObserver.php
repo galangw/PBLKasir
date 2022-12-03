@@ -19,7 +19,8 @@ class StokObserver
     public function creating(Stok $stok)
     {
         $stok->barang->barangMasuk()->create([
-            'jumlah'    =>  $stok->stok
+            'barang_id' => $stok->barang_id,
+            'jumlah'    =>  $stok->jumlah
         ]);
     }
     /**

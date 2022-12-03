@@ -16,7 +16,7 @@ class BarangMasukObserver
     public function created(BarangMasuk $barangMasuk)
     {
         $barangMasuk->barang->stok()->update([
-            'stok' => DB::raw('stok + ' . $barangMasuk->jumlah)
+            'jumlah' => DB::raw('jumlah + ' . $barangMasuk->jumlah)
         ]);
     }
 
