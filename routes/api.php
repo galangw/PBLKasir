@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\kategoriController;
 use App\Http\Controllers\BarangController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -29,7 +30,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::put('updateBarang/{barang}', [BarangController::class, 'updateBarang']);
     Route::delete('hapusBarang/{barang}', [BarangController::class, 'hapusBarang']);
     Route::post('tambahStok/{barang}', [BarangController::class, 'tambahStok']);
+    Route::get('/kategori', [kategoriController::class, 'index']);
+    Route::post('tambahkategori', [kategoriController::class, 'create']);
 });
 Route::post('login', [AuthController::class, 'login']);
-Route::post('tambahkaryawan', [AuthController::class, 'register']);
-Route::post('adduser', [addUsersController::class, 'index']);

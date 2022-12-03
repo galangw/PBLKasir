@@ -1,11 +1,34 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
 
-@section('content')
-    <div class="container">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <div class="row justify-content-center">
-            <div class="col-md-8 mt-auto">
-                <div class="card justify-content-center mt-5" style="">
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ config('app.name', 'Laravel') }}</title>
+
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+    <!-- Scripts -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{!! asset('assets/css/login.css') !!}">
+</head>
+
+<body>
+    <div class="container ">
+
+        <div class="row justify-content-center ">
+
+            <div class="col-md-8 mt-auto  justify-content-center">
+                <div class="card justify-content-center mt-5 " style="">
                     <div class="card-header text-center">{{ __('LOGIN') }}</div>
 
                     <div class="card-body justify-content-center ">
@@ -18,7 +41,8 @@
                                 <div class="col-md-6 offset-sm-1 text-center">
                                     <input style="" id="email" type="email" placeholder="Email Address"
                                         class="form-control @error('email') is-invalid @enderror  justify-content-center"
-                                        name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                        name="email" value="{{ old('email') }}" required autocomplete="email"
+                                        autofocus>
 
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
@@ -60,7 +84,7 @@
                             <div class="row mb-3  justify-content-center">
 
 
-                                <div class="col-md-6 offset-sm-1 text-center">
+                                <div class="col-md-6 offset-sm-1 text-center d-grid gap-2">
                                     <button type="submit" class="btn btn-primary btn-lg btn-block button-login ">
                                         {{ __('Login') }}
                                     </button>
@@ -85,4 +109,9 @@
         </div>
 
     </div>
-@endsection
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>

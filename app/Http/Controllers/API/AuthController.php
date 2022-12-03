@@ -47,7 +47,9 @@ class AuthController extends Controller
         $validate = Validator::make($request->all(), [
             'name'      =>  'required',
             'email'     =>  'required',
-            'password'  =>  'required'
+            'password'  =>  'required',
+            'role'      =>  'required',
+
         ]);
         $validated = $validate->validated();
         $validated['password'] = Hash::make($validated['password']);
