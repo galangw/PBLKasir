@@ -31,3 +31,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('tambahStok/{barang}', [BarangController::class, 'tambahStok']);
 });
 Route::post('login', [AuthController::class, 'login']);
+Route::post('tambahkaryawan', [AuthController::class, 'register']);
+Route::post('adduser', [addUsersController::class, 'index']);

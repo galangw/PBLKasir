@@ -32,7 +32,7 @@ class SendVerifikasiemail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            from: 'sirdi@example.com',
+            from: 'nganuwijaya05@gmail.com',
             subject: 'Send Verifikasiemail',
         );
     }
