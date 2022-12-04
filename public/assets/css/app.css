@@ -1,12 +1,12 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
+
 :root {
-    --header-height: 3rem;
+    --header-height: 2.5rem;
     --nav-width: 68px;
-    --first-color: #4723d9;
-    --first-color-light: #afa5d9;
-    --white-color: #f7f6fb;
-    --body-font: "Nunito", sans-serif;
-    --normal-font-size: 1rem;
+    --first-color: #3F0071;
+    --first-color-light: rgb(255, 255, 255);
+    --white-color: rgb(255, 255, 255);
+    --body-font:  'Poppins', sans-serif;
+    --normal-font-size: 14px;
     --z-fixed: 100;
 }
 *,
@@ -45,8 +45,8 @@ a {
     cursor: pointer;
 }
 .header_img {
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
     display: flex;
     justify-content: center;
     border-radius: 50%;
@@ -134,11 +134,11 @@ a {
         padding: 0 2rem 0 calc(var(--nav-width) + 2rem);
     }
     .header_img {
-        width: 40px;
-        height: 40px;
+        width: 30px;
+        height: 30px;
     }
     .header_img img {
-        width: 45px;
+        width: 30px;
     }
     .l-navbar {
         left: 0;
@@ -150,4 +150,43 @@ a {
     .body-pd {
         padding-left: calc(var(--nav-width) + 188px);
     }
+}
+.bg-white{
+    background-color: #fff;
+}
+.btn{
+    border-radius: 0px;
+    border: 0;
+    padding: 0.5rem 1rem;
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
+}
+.form-control{
+
+    border-top: 0px;
+    border-left: 0ch;
+    border-right: 0ch;
+    border-radius: 0px;
+    background-color: transparent;
+}
+.btn-galang{
+    background-color: #3F0071;
+    color: #fff;
+}
+.btn-galang:hover{
+    background-color: #ffffff;
+    color: #3F0071;
+    border: 1px solid #3F0071;
+    font-weight: bold;
+}
+.btn-danger{
+    background-color: transparent;
+    color: #3F0071;
+    border: 1px solid #3F0071;
+}
+.btn-danger:hover{
+    background-color: #3F0071;
+    color: #fff;
+    border: 1px solid #fff;
 }

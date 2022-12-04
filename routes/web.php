@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\kategoriController;
+use App\Http\Controllers\produkController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,7 +21,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/verifikasi/{email}', [AuthController::class, 'verifikasi']);
-
 Auth::routes();
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::resource('kategori', kategoriController::class);
+// Route::get('kategori', [kategoriController::class, 'index']);
+Route::get('/search', [kategoriController::class, 'search'])->name('search');

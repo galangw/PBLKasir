@@ -17,9 +17,74 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 
     <!-- Scripts -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> --}}
+    <link rel="stylesheet" type="text/css" href="{!! asset('assets/css/bootstrap.css') !!}">
     <link rel="stylesheet" type="text/css" href="{!! asset('assets/css/app.css') !!}">
+
+</head>
+
+<body id="body-pd">
+    <header class="header" id="header">
+        <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
+        <div class="header_img"> <img src="https://i.pravatar.cc/25" alt=""> </div>
+    </header>
+    <div class="l-navbar" id="nav-bar">
+        <nav class="nav">
+            <div>
+                <a href="/home" class="nav_logo">
+                    <i class='bx bx-layer nav_logo-icon'></i>
+                    <span class="nav_logo-name">SirDi</span>
+                </a>
+                <div class="nav_list">
+                    <a href="/home" class="nav_link active">
+                        <i class='bx bxs-dashboard nav_icon'></i>
+                        <span class="nav_name">Dashboard</span>
+                    </a>
+
+                    <a href="#" class="nav_link">
+                        <i class='bx bx-message-square-detail nav_icon'></i>
+                        <span class="nav_name">#</span>
+                    </a>
+                    <a href="/kategori" class="nav_link">
+                        <i class='bx bx-category nav_icon'></i>
+                        <span class="nav_name">Produk</span>
+                    </a>
+                    <a href="#" class="nav_link">
+                        <i class='bx bx-bookmark nav_icon'></i>
+                        <span class="nav_name">#</span>
+                    </a>
+                    <a href="#" class="nav_link">
+                        <i class='bx bx-folder nav_icon'></i>
+                        <span class="nav_name">#</span>
+                    </a>
+                    <a href="#" class="nav_link">
+                        <i class='bx bx-bar-chart-alt-2 nav_icon'> </i>
+                        <span class="nav_name">#</span>
+                    </a>
+                </div>
+            </div>
+
+
+            <a onclick="event.preventDefault();
+            document.getElementById('logout-form').submit();"
+                {{ __('Logout') }} href="{{ route('logout') }}" class="nav_link"> <i
+                    class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
+        </nav>
+    </div>
+    <!--Container Main start-->
+    <div class="bg-light">
+        @yield('content')
+    </div>
+    <!--Container Main end-->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function(event) {
 
@@ -60,49 +125,6 @@
             // Your code to run since DOM is loaded and ready
         });
     </script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-</head>
-
-<body id="body-pd">
-    <header class="header" id="header">
-        <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
-        <div class="header_img"> <img src="https://i.pravatar.cc/30" alt=""> </div>
-    </header>
-    <div class="l-navbar" id="nav-bar">
-        <nav class="nav">
-            <div> <a href="#" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span
-                        class="nav_logo-name">SirDi</span> </a>
-                <div class="nav_list"> <a href="#" class="nav_link active"> <i
-                            class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span> </a> <a
-                        href="#" class="nav_link"> <i class='bx bx-user nav_icon'></i>
-                        <span class="nav_name">Users</span> </a> <a href="#" class="nav_link"> <i
-                            class='bx bx-message-square-detail nav_icon'></i> <span class="nav_name">Messages</span>
-                    </a> <a href="#" class="nav_link"> <i class='bx bx-bookmark nav_icon'></i> <span
-                            class="nav_name">Bookmark</span> </a> <a href="#" class="nav_link"> <i
-                            class='bx bx-folder nav_icon'></i> <span class="nav_name">Files</span> </a> <a
-                        href="#" class="nav_link"> <i class='bx bx-bar-chart-alt-2 nav_icon'></i> <span
-                            class="nav_name">Stats</span> </a> </div>
-            </div>
-
-
-            <a onclick="event.preventDefault();
-            document.getElementById('logout-form').submit();"
-                {{ __('Logout') }} href="{{ route('logout') }}" class="nav_link"> <i
-                    class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                @csrf
-            </form>
-        </nav>
-    </div>
-    <!--Container Main start-->
-    <div class="height-100 bg-light">
-        @yield('content')
-    </div>
-    <!--Container Main end-->
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
 </body>
 
 </html>
