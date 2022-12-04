@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\BarangController;
 use App\Http\Controllers\API\kategoriController;
-use App\Http\Controllers\BarangController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
