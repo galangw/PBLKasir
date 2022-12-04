@@ -69,7 +69,9 @@ class kategoriController extends Controller
     public function search(Request $request)
     {
         $keyword = $request->search;
-        $kategoris = Kategori::where('nama', 'like', "%" . $keyword . "%")->paginate(5);
+        $kategoris = Kategori::where('nama', 'like', "%" . $keyword . "%")
+            ->orwhere('kategori_id', 'like', "%" . $keyword . "%")
+            ->paginate(5);
         return view('kategori.index', compact('kategoris'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 }

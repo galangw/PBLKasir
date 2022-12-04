@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\barangwebController;
 use App\Http\Controllers\kategoriController;
 use App\Http\Controllers\produkController;
 use Illuminate\Support\Facades\Route;
@@ -25,4 +26,6 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('kategori', kategoriController::class);
 // Route::get('kategori', [kategoriController::class, 'index']);
-Route::get('/search', [kategoriController::class, 'search'])->name('search');
+Route::get('/carikategori', [kategoriController::class, 'search'])->name('carikategori');
+Route::get('/caribarang', [barangwebController::class, 'search'])->name('caribarang');
+Route::resource('barang', barangwebController::class);

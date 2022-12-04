@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use app\Models\Barang;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $barang = Barang::latest()->get();
+        $totalBarang = $barang->count();
+        return view('home', compact('totalBarang'));
     }
 }

@@ -190,3 +190,19 @@ a {
     color: #fff;
     border: 1px solid #fff;
 }
+.form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: rgb(33, 33, 33);
+    opacity: 0.5; /* Firefox */
+    font-size: 14px;
+}
+
+
+
+.card-dash a{
+    background-color: transparent;
+    color: #fff;
+}
+.card-dash:hover a{
+    background-color: transparent;
+    color: #3F0071;
+}

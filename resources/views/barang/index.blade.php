@@ -3,15 +3,15 @@
 @section('content')
     <div class="row">
         <div class="col-sm-12 bg-white">
-            <h2 class="mt-2">Daftar Kategori</h2>
+            <h2 class="mt-2">Daftar Barang</h2>
 
 
         </div>
         <div class="col-md-6 bg-white">
-            <a class="btn btn-galang mb-3" href="{{ route('kategori.create') }}"> Tambah Kategori</a>
+            <a class="btn btn-galang mb-3" href="{{ route('barang.create') }}"> Tambah Barang</a>
         </div>
         <div class="col-md-6 bg-white">
-            <form class="form" method="get" action="{{ route('carikategori') }}">
+            <form class="form" method="get" action="{{ route('caribarang') }}">
                 <div class="form-group w-100 mb-3">
 
                     <input type="text" name="search" class="form-control w-75 d-inline" id="search"
@@ -31,19 +31,28 @@
     <table class="table table-bordered bg-white">
         <tr>
             <th style="width: 5%">No</th>
+            <th>Nama Barang</th>
             <th>Nama Kategori</th>
+            <th>Harga Beli</th>
+            <th>Harga Jual</th>
+            <th>Stok</th>
 
             <th width="280px">Action</th>
         </tr>
-        @foreach ($kategoris as $kategori)
+        @foreach ($barangs as $barang)
             <tr>
                 <th scope="row">{{ ++$i }}</th>
-                <td>{{ $kategori->nama }}</td>
+                <td>{{ $barang->nama }}</td>
+                <td>{{ $barang->kategori->nama }}</td>
+                <td>{{ $barang->harga_beli }}</td>
+                <td>{{ $barang->harga_jual }}</td>
+                <td>{{ $barang->stok->jumlah ?? '' }}</td>
+
 
                 <td>
-                    <form action="{{ route('kategori.destroy', $kategori->kategori_id) }}" method="POST">
+                    <form action="{{ route('barang.destroy', $barang->barang_id) }}" method="POST">
 
-                        <a class="btn btn-galang" href="{{ route('kategori.edit', $kategori->kategori_id) }}">Edit</a>
+                        <a class="btn btn-galang" href="{{ route('barang.edit', $barang->barang_id) }}">Edit</a>
 
                         @csrf
                         @method('DELETE')
@@ -55,6 +64,6 @@
         @endforeach
     </table>
     <div class="row d-flex justify-content-center text-center bg-white">
-        {{ $kategoris->links() }}
+        {{ $barangs->links() }}
     </div>
 @endsection

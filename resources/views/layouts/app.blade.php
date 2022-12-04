@@ -39,18 +39,18 @@
                     <span class="nav_logo-name">SirDi</span>
                 </a>
                 <div class="nav_list">
-                    <a href="/home" class="nav_link active">
-                        <i class='bx bxs-dashboard nav_icon'></i>
+                    <a href="/home" class="nav_link  {{ request()->is('home*') ? 'active' : '' }} ">
+                        <i class='bx bx-home nav_icon'></i>
                         <span class="nav_name">Dashboard</span>
                     </a>
 
-                    <a href="#" class="nav_link">
-                        <i class='bx bx-message-square-detail nav_icon'></i>
-                        <span class="nav_name">#</span>
+                    <a href="/barang" class="nav_link {{ request()->is('barang*') ? 'active' : '' }} ">
+                        <i class='bx bx-box nav_icon'></i>
+                        <span class="nav_name">Barang</span>
                     </a>
-                    <a href="/kategori" class="nav_link">
+                    <a href="/kategori" class="nav_link {{ request()->is('kategori*') ? 'active' : '' }} ">
                         <i class='bx bx-category nav_icon'></i>
-                        <span class="nav_name">Produk</span>
+                        <span class="nav_name">Kategori</span>
                     </a>
                     <a href="#" class="nav_link">
                         <i class='bx bx-bookmark nav_icon'></i>
