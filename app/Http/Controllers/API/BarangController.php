@@ -13,23 +13,24 @@ class BarangController extends Controller
     {
         return response()->json([
             'status' => true,
-            'data'  => Barang::with(['stok', 'kategori', 'barangMasuk'])->get()
+            'data'  => Barang::with(['supplier', 'barangMasuk'])->get()
         ]);
     }
     public function tambahBarang(Request $request)
     {
         $validate = Validator::make($request->all(), [
             'kategori_id'   => 'required',
+            'supplier_id'   => 'required',
             'nama'          => 'required',
             'harga_beli'    => 'required',
             'harga_jual'    => 'required',
             'stok'          => 'required'
         ]);
         $validated = $validate->validated();
-        unset($validated['stok']);
+        // unset($validated['stok']);
         try {
             $barang = Barang::create($validated);
-            $barang->stok()->create(['jumlah' => $request->stok]);
+            $barang->barangMasuk()->create(['jumlah' => $request->stok]);
             return response()->json([
                 'status'   =>  true,
                 'message'   =>  "Sukses Tambah Barang",
@@ -45,6 +46,7 @@ class BarangController extends Controller
     {
         $validate = Validator::make($request->all(), [
             'kategori_id'   => 'required',
+            'supplier_id'   => 'required',
             'nama'          => 'required',
             'harga_beli'    => 'required',
             'harga_jual'    => 'required',

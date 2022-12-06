@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        // Schema::create('suppliers', function (Blueprint $table) {
-        //     $table->id('supplier_id');
-        //     $table->string('nama');
-        //     $table->timestamps();
-        // });
+        Schema::create('suppliers', function (Blueprint $table) {
+            $table->id('supplier_id');
+            $table->string('nama_supplier');
+            $table->timestamps();
+        });
     }
 
     /**
