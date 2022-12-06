@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('stoks', function (Blueprint $table) {
-            $table->id('stok_id');
-            $table->foreignId('barang_id')->references('barang_id')->on('barangs')
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
-            $table->integer('jumlah');
-            $table->timestamps();
-        });
+        // Schema::create('stoks', function (Blueprint $table) {
+        //     $table->id('stok_id');
+        //     $table->foreignId('barang_id')->references('barang_id')->on('barangs')
+        //         ->cascadeOnDelete()
+        //         ->cascadeOnUpdate();
+        //     $table->integer('jumlah');
+        //     $table->timestamps();
+        // });
     }
 
     /**
