@@ -11,13 +11,13 @@ class Barang extends Model
     protected $primaryKey = "barang_id";
     protected $guarded = ['barang_id'];
 
-    // public function stok()
-    // {
-    //     return $this->hasOne(Stok::class, 'barang_id');
-    // }
+    public function stok()
+    {
+        return $this->hasOne(Stok::class, 'barang_id');
+    }
     public function supplier()
     {
-        return $this->belongsTo(Supplier::class, 'supplier_id');
+        return $this->belongsTo(Supplier::class, 'barang_id');
     }
     public function kategori()
     {

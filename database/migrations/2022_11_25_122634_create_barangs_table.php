@@ -18,13 +18,12 @@ return new class extends Migration
             $table->foreignId('kategori_id')->references('kategori_id')->on('kategoris')
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
-            $table->foreignId('supplier_id')->references('supplier_id')->on('suppliers')
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
+            // $table->foreignId('supplier_id')->references('supplier_id')->on('suppliers')
+            //     ->cascadeOnDelete()
+            //     ->cascadeOnUpdate();
             $table->string('nama');
             $table->integer('harga_beli');
             $table->integer('harga_jual');
-            $table->integer('stok')->unsigned();
             $table->timestamps();
         });
     }

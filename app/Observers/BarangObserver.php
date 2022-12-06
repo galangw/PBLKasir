@@ -14,9 +14,7 @@ class BarangObserver
      */
     public function created(Barang $barang)
     {
-        // $barang->barangMasuk()->create([
-        //     'jumlah' => $barang->stok
-        // ]);
+        //
     }
 
     /**
