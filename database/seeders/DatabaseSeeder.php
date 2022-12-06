@@ -25,7 +25,9 @@ class DatabaseSeeder extends Seeder
         Kategori::create([
             'nama'  => 'kaos'
         ]);
-
+        Supplier::create([
+            'nama_supplier' => 'Yanto'
+        ]);
         \App\Models\User::factory()->create([
             'name' => 'admin',
             'email' => 'admin@admin.com',

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Barang;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class BarangController extends Controller
@@ -13,23 +14,23 @@ class BarangController extends Controller
     {
         return response()->json([
             'status' => true,
-            'data'  => Barang::with(['stok', 'kategori', 'barangMasuk'])->get()
+            'data'  => Barang::with(['kategori', 'barangMasuk'])->get()
         ]);
     }
     public function tambahBarang(Request $request)
     {
         $validate = Validator::make($request->all(), [
             'kategori_id'   => 'required',
+            'supplier_id'   => 'required',
             'nama'          => 'required',
             'harga_beli'    => 'required',
             'harga_jual'    => 'required',
             'stok'          => 'required'
         ]);
         $validated = $validate->validated();
-        unset($validated['stok']);
         try {
             $barang = Barang::create($validated);
-            $barang->stok()->create(['jumlah' => $request->stok]);
+            $barang->barangMasuk()->create(['jumlah' => $validated['stok']]);
             return response()->json([
                 'status'   =>  true,
                 'message'   =>  "Sukses Tambah Barang",
@@ -45,6 +46,7 @@ class BarangController extends Controller
     {
         $validate = Validator::make($request->all(), [
             'kategori_id'   => 'required',
+            'supplier_id'   => 'required',
             'nama'          => 'required',
             'harga_beli'    => 'required',
             'harga_jual'    => 'required',
@@ -85,6 +87,7 @@ class BarangController extends Controller
         ]);
         $validated = $validate->validated();
         try {
+            $barang->update(['stok' => DB::raw('stok +' . $validated['stok'])]);
             $barang->barangMasuk()->create([
                 'jumlah' => $request->stok
             ]);
