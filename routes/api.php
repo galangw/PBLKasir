@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\BarangController;
+use App\Http\Controllers\API\HistoryTransaksiController;
 use App\Http\Controllers\API\kategoriController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +25,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/home', function () {
         return "halo";
     });
+    Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/barang', [BarangController::class, 'semuaBarang']);
     Route::post('tambahkaryawan', [AuthController::class, 'tambahKaryawan']);
     Route::post('tambahbarang', [BarangController::class, 'tambahBarang']);
@@ -32,5 +34,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('tambahStok/{barang}', [BarangController::class, 'tambahStok']);
     Route::get('/kategori', [kategoriController::class, 'index']);
     Route::post('tambahkategori', [kategoriController::class, 'create']);
+    Route::post('/transaksi', [HistoryTransaksiController::class, 'transaksi']);
 });
 Route::post('login', [AuthController::class, 'login']);
