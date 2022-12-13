@@ -9,6 +9,8 @@ class HistoryTransaksi extends Model
 {
     use HasFactory;
     protected $primaryKey = "history_transaksi_id";
+    protected $fillable = ['user_id', 'jumlah', 'total', 'laba'];
+    protected $table = "history_transaksis";
     public function barang()
     {
         return $this->belongsToMany(Barang::class, 'barang_history_transaksis', 'history_transaksi_id', 'barang_id');
