@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\BarangController;
+use App\Http\Controllers\API\SupplierController;
 use App\Http\Controllers\API\HistoryTransaksiController;
 use App\Http\Controllers\API\kategoriController;
 use Illuminate\Http\Request;
@@ -35,5 +36,15 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/kategori', [kategoriController::class, 'index']);
     Route::post('tambahkategori', [kategoriController::class, 'create']);
     Route::post('/transaksi', [HistoryTransaksiController::class, 'transaksi']);
+
+    Route::get('/kategori', [kategoriController::class, 'index']);
+    Route::post('tambahkategori', [kategoriController::class, 'create']);
+    Route::put('updatekategori/{kategori}', [kategoriController::class, 'update']);
+    Route::delete('hapuskategori/{kategori}', [kategoriController::class, 'destroy']);
+
+    Route::get('/supplier', [SupplierController::class, 'index']);
+    Route::post('tambahsupplier', [SupplierController::class, 'create']);
+    Route::put('updatesupplier/{supplier}', [SupplierController::class, 'update']);
+    Route::delete('hapussupplier/{supplier}', [SupplierController::class, 'destroy']);
 });
 Route::post('login', [AuthController::class, 'login']);
