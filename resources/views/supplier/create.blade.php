@@ -5,10 +5,10 @@
         <div class="row">
             <div class="col-md-12 bg-white">
                 <div>
-                    <h2 class="mt-3">Tambah Kategori</h2>
+                    <h2 class="mt-3">Tambah Supplier Baru</h2>
                 </div>
                 <div>
-                    <a class="btn btn-galang mb-2" href="{{ route('kategori.index') }}"> Kembali </a>
+                    <a class="btn btn-galang mb-2" href="{{ route('supplier.index') }}"> Kembali </a>
                 </div>
             </div>
         </div>
@@ -24,14 +24,14 @@
             </div>
         @endif
 
-        <form action="{{ route('kategori.store') }}" method="POST">
+        <form action="{{ route('supplier.store') }}" method="POST">
             @csrf
 
             <div class="row bg-white">
                 <div class="col-xs-12 col-sm-12 col-md-12 bg-white">
                     <div class="form-group">
-                        <strong>Nama Kategori :</strong>
-                        <input type="text" name="nama" class="form-control" placeholder="Nama">
+                        <strong>Nama supplier :</strong>
+                        <input type="text" name="nama_supplier" class="form-control" placeholder="Nama">
                     </div>
                 </div>
 

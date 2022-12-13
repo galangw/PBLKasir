@@ -2,20 +2,20 @@
 
 @section('content')
     @if (Auth::user()->role == 'admin')
-        <div class="row">
-            <div class="col-md-12 bg-white">
+        <div class="row bg-white">
+            <div class="col-lg-12 mt-2 bg-white">
                 <div>
-                    <h2 class="mt-3">Tambah Kategori</h2>
+                    <h2>Edit Supplier</h2>
                 </div>
                 <div>
-                    <a class="btn btn-galang mb-2" href="{{ route('kategori.index') }}"> Kembali </a>
+                    <a class="btn btn-danger mb-2" href="{{ route('supplier.index') }}"> Kembali</a>
                 </div>
             </div>
         </div>
 
         @if ($errors->any())
             <div class="alert alert-danger">
-                <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                <strong>Whoops!</strong> Maaf, Periksa Ulang Inputan Anda.<br><br>
                 <ul>
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -24,14 +24,16 @@
             </div>
         @endif
 
-        <form action="{{ route('kategori.store') }}" method="POST">
+        <form action="{{ route('supplier.update', $supplier->supplier_id) }}" method="POST">
             @csrf
+            @method('PUT')
 
             <div class="row bg-white">
                 <div class="col-xs-12 col-sm-12 col-md-12 bg-white">
                     <div class="form-group">
-                        <strong>Nama Kategori :</strong>
-                        <input type="text" name="nama" class="form-control" placeholder="Nama">
+                        <strong>Name:</strong>
+                        <input type="text" name="nama_supplier" value="{{ $supplier->nama_supplier }}"
+                            class="form-control" placeholder="Name">
                     </div>
                 </div>
 

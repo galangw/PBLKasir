@@ -6,6 +6,7 @@ use App\Models\Barang;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Supplier;
 
 class barangwebController extends Controller
 {
@@ -25,25 +26,27 @@ class barangwebController extends Controller
     public function create()
     {
         // $barangs = Barang::with(['stok', 'kategori', 'barangMasuk'])->get();
-        $barangs = Kategori::all();
+        $kategoris = Kategori::all();
+        $suppliers = Supplier::all();
         // echo $barangs;
-        return view('barang.create',  compact('barangs'));
+        return view('barang.create',  compact('kategoris', 'suppliers'));
     }
 
     public function store(Request $request)
     {
         $validate = Validator::make($request->all(), [
             'kategori_id'   => 'required',
+            'supplier_id'   => 'required',
             'nama'          => 'required',
             'harga_beli'    => 'required',
             'harga_jual'    => 'required',
             'stok'          => 'required'
         ]);
         $validated = $validate->validated();
-        unset($validated['stok']);
+        // unset($validated['stok']);
         try {
             $barang = Barang::create($validated);
-            $barang->stok()->create(['jumlah' => $request->stok]);
+            // $barang->stok()->create(['jumlah' => $request->stok]);
             return redirect()->route('barang.index')
                 ->with('success', 'Barang Berhasil Ditambahkan');
         } catch (\Throwable $e) {
@@ -63,7 +66,8 @@ class barangwebController extends Controller
     public function edit(Barang $barang)
     {
         $kategori = Kategori::all();
-        return view('barang.edit', compact('barang', 'kategori'));
+        $supplier = Supplier::all();
+        return view('barang.edit', compact('barang', 'kategori', 'supplier'));
     }
 
 

@@ -52,9 +52,9 @@
                         <i class='bx bx-category nav_icon'></i>
                         <span class="nav_name">Kategori</span>
                     </a>
-                    <a href="#" class="nav_link">
-                        <i class='bx bx-bookmark nav_icon'></i>
-                        <span class="nav_name">#</span>
+                    <a href="/supplier" class="nav_link {{ request()->is('supplier*') ? 'active' : '' }} ">
+                        <i class='bx bx-store-alt nav_icon'></i>
+                        <span class="nav_name">Supplier</span>
                     </a>
                     <a href="#" class="nav_link">
                         <i class='bx bx-folder nav_icon'></i>
