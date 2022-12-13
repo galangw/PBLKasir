@@ -22,12 +22,12 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        Kategori::create([
-            'nama'  => 'kaos'
-        ]);
-        Supplier::create([
-            'nama_supplier' => 'Yanto'
-        ]);
+        // Kategori::create([
+        //     'nama'  => 'kaos'
+        // ]);
+        // Supplier::create([
+        //     'nama_supplier' => 'Yanto'
+        // ]);
         \App\Models\User::factory()->create([
             'name' => 'admin',
             'email' => 'admin@admin.com',
