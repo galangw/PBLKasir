@@ -31,6 +31,11 @@
             <div class="row bg-white">
                 <div class="col-xs-12 col-sm-12 col-md-12 bg-white">
                     <div class="form-group">
+                        <strong>Kode Barang:</strong>
+                        <input type="text" name="barang_id" value="{{ $barang->barang_id }}" class="form-control"
+                            placeholder="Name">
+                    </div>
+                    <div class="form-group">
                         <strong>Name:</strong>
                         <input type="text" name="nama" value="{{ $barang->nama }}" class="form-control"
                             placeholder="Name">
@@ -43,6 +48,18 @@
                                 <option value="{{ $listkategori->kategori_id }}"
                                     {{ $barang->kategori_id == $listkategori->kategori_id ? 'selected' : '' }}>
                                     {{ $listkategori->nama }}</option>
+                            @endforeach
+                        </select>
+
+                    </div>
+                    <div class="form-group">
+                        <strong> Supplier :</strong>
+                        <select class="form-control" id="position-option" name="supplier_id">
+                            {{-- <option value="{{ $barang->kategori_id }}" selected>{{ $barang->kategori->nama }}</option> --}}
+                            @foreach ($supplier as $item)
+                                <option value="{{ $item->supplier_id }}"
+                                    {{ $barang->supplier_id == $item->supplier_id ? 'selected' : '' }}>
+                                    {{ $item->nama_supplier }}</option>
                             @endforeach
                         </select>
 
@@ -62,7 +79,7 @@
                     <div class="form-group">
                         <strong>Jumlah Stok</strong>
                         <input type="text" name="stok" class="form-control" placeholder="Stok"
-                            value="{{ $barang->stok->jumlah }}">
+                            value="{{ $barang->stok }}">
 
                     </div>
                 </div>

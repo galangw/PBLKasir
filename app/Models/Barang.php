@@ -8,9 +8,28 @@ use Illuminate\Database\Eloquent\Model;
 class Barang extends Model
 {
     use HasFactory;
-    protected $primaryKey = "barang_id";
-    protected $guarded = ['barang_id'];
+    protected $primaryKey = 'barang_id';
+    protected $guarded = [];
+    protected $keyType = 'string';
+    // public $incrementing = false;
+    // protected $fillable = [
+    //     'kategori_id',
+    //     'barang_id',
+    //     'supplier_id',
+    //     'nama',
+    //     'harga_beli',
+    //     'harga_jual',
+    //     'stok'
+    // ];
+    protected static function boot()
+    {
+        parent::boot();
 
+        static::created(function ($model) {
+            $model->barang_id = "PRODUCT_" . $model->id;
+            $model->save();
+        });
+    }
     public function supplier()
     {
         return $this->belongsTo(Supplier::class, 'supplier_id');

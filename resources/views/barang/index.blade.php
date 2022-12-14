@@ -32,6 +32,7 @@
         <table class="table table-bordered bg-white">
             <tr>
                 <th style="width: 5%">No</th>
+                <th>Kode Barang</th>
                 <th>Nama Barang</th>
                 <th>Nama Kategori</th>
                 <th>Harga Beli</th>
@@ -44,6 +45,7 @@
             @foreach ($barangs as $barang)
                 <tr>
                     <th scope="row">{{ ++$i }}</th>
+                    <td>{{ $barang->barang_id }}</td>
                     <td>{{ $barang->nama }}</td>
                     <td>{{ $barang->kategori->nama }}</td>
                     <td>{{ $barang->harga_beli }}</td>

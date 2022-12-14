@@ -7,6 +7,7 @@ use App\Models\Kategori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Supplier;
+use PDF;
 
 class barangwebController extends Controller
 {
@@ -35,6 +36,7 @@ class barangwebController extends Controller
     public function store(Request $request)
     {
         $validate = Validator::make($request->all(), [
+            // 'barang_id'     => 'required',
             'kategori_id'   => 'required',
             'supplier_id'   => 'required',
             'nama'          => 'required',
@@ -74,17 +76,19 @@ class barangwebController extends Controller
     public function update(Request $request, Barang $barang)
     {
         $validate = Validator::make($request->all(), [
+            'barang_id'     => 'required',
             'kategori_id'   => 'required',
+            'supplier_id'   => 'required',
             'nama'          => 'required',
             'harga_beli'    => 'required',
             'harga_jual'    => 'required',
             'stok'          => 'required'
         ]);
         $validated = $validate->validated();
-        unset($validated['stok']);
+        // unset($validated['stok']);
         try {
             $barang->update($validated);
-            $barang->stok()->create(['jumlah' => $request->stok]);
+            // $barang->stok()->create(['jumlah' => $request->stok]);
             return redirect()->route('barang.index')
                 ->with('success', 'Barang Berhasil Ditambahkan');
         } catch (\Throwable $e) {

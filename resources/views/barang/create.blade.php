@@ -30,6 +30,15 @@
             <div class="row bg-white">
                 <div class="col-xs-12 col-sm-12 col-md-12 bg-white">
                     <div class="form-group">
+                        <strong>Kode Barang :</strong>
+                        <div class="row">
+                            <div class="col-md-6"> <input type="text" name="barang_id" class="form-control"
+                                    placeholder="kode barang" id="barang_id"></div>
+                            <div class="col-md-6"> <input type="button" onclick="Random();"
+                                    class="btn btn-galang d-flex justify-content-end" value="GENERATE"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <strong>Nama Barang :</strong>
                         <input type="text" name="nama" class="form-control" placeholder="Nama">
 
@@ -82,4 +91,11 @@
             window.location.href = "/home";
         </script>
     @endif
+    <script>
+        function Random() {
+            // var rnd = Math.floor(Math.random() * 100000);
+            var rnd = (Math.random() + 1).toString(36).substring(3);
+            document.getElementById('barang_id').value = rnd;
+        }
+    </script>
 @endsection

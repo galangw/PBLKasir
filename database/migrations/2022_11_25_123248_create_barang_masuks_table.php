@@ -15,11 +15,17 @@ return new class extends Migration
     {
         Schema::create('barang_masuks', function (Blueprint $table) {
             $table->id('barang_masuk_id');
-            $table->foreignId('barang_id')->references('barang_id')->on('barangs')
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
+            // $table->foreignId('barang_id')->references('barang_id')->on('barangs')
+            //     ->cascadeOnDelete()
+            //     ->cascadeOnUpdate();
+            $table->string('barang_id', 10);
             $table->integer('jumlah');
             $table->timestamps();
+        });
+        Schema::table('barang_masuks', function ($table) {
+            $table->foreign('barang_id')->references('barang_id')->on('barangs')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
         });
     }
 

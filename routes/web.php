@@ -4,6 +4,7 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\barangwebController;
 use App\Http\Controllers\kategoriController;
 use App\Http\Controllers\produkController;
+use App\Http\Controllers\HistoryTransaksiController;
 use App\Http\Controllers\supplierController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -36,7 +37,9 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('barang', barangwebController::class);
     Route::resource('kategori', kategoriController::class);
     Route::resource('supplier', supplierController::class);
+    Route::resource('transaksi', HistoryTransaksiController::class);
     Route::get('/carikategori', [kategoriController::class, 'search'])->name('carikategori');
     Route::get('/caribarang', [barangwebController::class, 'search'])->name('caribarang');
     Route::get('/carisupplier', [supplierController::class, 'search'])->name('carisupplier');
+    Route::post('/barang/cetak-barcode', [ProdukController::class, 'cetakBarcode'])->name('produk.cetak_barcode');
 });
