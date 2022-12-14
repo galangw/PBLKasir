@@ -85,12 +85,4 @@ class AuthController extends Controller
             'message'   =>  'Berhasil Log Out'
         ], 200);
     }
-    public function daftarKaryawan()
-    {
-        $karyawan = User::where('role', '<>', 'admin')->get();
-        return response()->json([
-            'status'    =>  true,
-            'data'   =>  $karyawan
-        ], 200);
-    }
 }
