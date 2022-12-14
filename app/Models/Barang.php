@@ -10,7 +10,13 @@ class Barang extends Model
     use HasFactory;
     protected $primaryKey = "barang_id";
     protected $guarded = ['barang_id'];
-
+    public function scopeCari($query, $nama)
+    {
+        $query->when($nama ?? false, function ($q) use ($nama) {
+            $q->where('nama', 'LIKE', "%" . $nama . "%");
+        });
+        return $query;
+    }
     public function supplier()
     {
         return $this->belongsTo(Supplier::class, 'supplier_id');
