@@ -21,7 +21,16 @@ class Barang extends Model
     //     'harga_jual',
     //     'stok'
     // ];
-
+    public function scopeCari($query, $kode, $nama)
+    {
+        $query->when($kode ?? null, function ($q, $kode) {
+            $q->where('barang_id', $kode);
+        });
+        $query->when($nama ?? null, function ($q, $nama) {
+            $q->where('nama', 'LIKE', "%" . $nama . "%");
+        });
+        return $query;
+    }
     public function supplier()
     {
         return $this->belongsTo(Supplier::class, 'supplier_id');
