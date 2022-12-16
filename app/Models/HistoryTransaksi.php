@@ -9,6 +9,7 @@ class HistoryTransaksi extends Model
 {
     use HasFactory;
     protected $primaryKey = "history_transaksi_id";
+    protected $guarded = [];
     protected $fillable = ['user_id', 'jumlah', 'total', 'laba'];
     protected $table = "history_transaksis";
     public function barang()

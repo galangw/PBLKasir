@@ -37,9 +37,7 @@ class HistoryTransaksiController extends Controller
         DB::beginTransaction();
         try {
             $barang = Barang::whereIn('barang_id', $barangId)->get();
-            $caseBarang = [];
             foreach ($barang as $key => $value) {
-                $caseBarang[] = "WHEN " . $barangId[$key] . " THEN ?";
                 $history = new HistoryTransaksi();
                 $history->user_id = Auth::user()->id;
                 $history->jumlah = $barangJumlah[$key];
@@ -47,10 +45,9 @@ class HistoryTransaksiController extends Controller
                 $history->laba = ($value->harga_jual * $barangJumlah[$key]) - ($value->harga_beli * $barangJumlah[$key]);
                 $history->save();
                 $history->barang()->attach($barangId[$key]);
+                $value->stok = $value->stok - $barangJumlah[$key];
+                $value->save();
             }
-            $caseBarang = implode(" ", $caseBarang);
-            $barangId = implode(',', $barangId);
-            DB::update("UPDATE barangs SET stok = stok - CASE " . $caseBarang . " END WHERE barang_id in (" . $barangId . ")", $barangJumlah);
             DB::commit();
             return response()->json([
                 'status' => true,
