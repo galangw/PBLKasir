@@ -66,19 +66,19 @@
                     </div>
                     <div class="form-group">
                         <strong>Harga Beli :</strong>
-                        <input type="text" value="{{ $barang->harga_beli }}" name="harga_beli" class="form-control"
+                        <input type="number" value="{{ $barang->harga_beli }}" name="harga_beli" class="form-control"
                             placeholder="Harga Beli">
 
                     </div>
                     <div class="form-group">
                         <strong>Harga Jual :</strong>
-                        <input type="text" value="{{ $barang->harga_jual }}" name="harga_jual" class="form-control"
+                        <input type="number" value="{{ $barang->harga_jual }}" name="harga_jual" class="form-control"
                             placeholder="Harga Jual">
 
                     </div>
                     <div class="form-group">
                         <strong>Jumlah Stok</strong>
-                        <input type="text" name="stok" class="form-control" placeholder="Stok"
+                        <input type="number" name="stok" class="form-control" placeholder="Stok"
                             value="{{ $barang->stok }}">
 
                     </div>
