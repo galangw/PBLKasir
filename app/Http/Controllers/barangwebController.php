@@ -36,7 +36,7 @@ class barangwebController extends Controller
     public function store(Request $request)
     {
         $validate = Validator::make($request->all(), [
-            // 'barang_id'     => 'required',
+            'barang_id'     => 'required',
             'kategori_id'   => 'required',
             'supplier_id'   => 'required',
             'nama'          => 'required',
