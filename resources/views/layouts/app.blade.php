@@ -23,6 +23,7 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> --}}
     <link rel="stylesheet" type="text/css" href="{!! asset('assets/css/bootstrap.css') !!}">
     <link rel="stylesheet" type="text/css" href="{!! asset('assets/css/app.css') !!}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 </head>
 
@@ -43,7 +44,10 @@
                         <i class='bx bx-home nav_icon'></i>
                         <span class="nav_name">Dashboard</span>
                     </a>
-
+                    <a href="/transaksi" class="nav_link {{ request()->is('transaksi*') ? 'active' : '' }} ">
+                        <i class='bx bx-folder nav_icon'></i>
+                        <span class="nav_name">Transaksi</span>
+                    </a>
                     <a href="/barang" class="nav_link {{ request()->is('barang*') ? 'active' : '' }} ">
                         <i class='bx bx-box nav_icon'></i>
                         <span class="nav_name">Barang</span>
@@ -56,10 +60,7 @@
                         <i class='bx bx-store-alt nav_icon'></i>
                         <span class="nav_name">Supplier</span>
                     </a>
-                    <a href="#" class="nav_link">
-                        <i class='bx bx-folder nav_icon'></i>
-                        <span class="nav_name">#</span>
-                    </a>
+
                     <a href="#" class="nav_link">
                         <i class='bx bx-bar-chart-alt-2 nav_icon'> </i>
                         <span class="nav_name">#</span>
@@ -84,7 +85,6 @@
     <!--Container Main end-->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function(event) {
 

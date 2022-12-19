@@ -38,6 +38,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('kategori', kategoriController::class);
     Route::resource('supplier', supplierController::class);
     Route::resource('transaksi', HistoryTransaksiController::class);
+    Route::get('/search', [HistoryTransaksiController::class, 'search'])->name('search');
     Route::get('/carikategori', [kategoriController::class, 'search'])->name('carikategori');
     Route::get('/caribarang', [barangwebController::class, 'search'])->name('caribarang');
     Route::get('/carisupplier', [supplierController::class, 'search'])->name('carisupplier');
