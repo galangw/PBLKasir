@@ -36,5 +36,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::put('updatesupplier/{supplier}', [SupplierController::class, 'update']);
     Route::delete('hapussupplier/{supplier}', [SupplierController::class, 'destroy']);
     Route::get('/karyawan', [AuthController::class, 'daftarKaryawan']);
+    Route::get('/transaksi', [HistoryTransaksiController::class, 'index']);
+    Route::get('/hariini', [HistoryTransaksiController::class, 'hariIni']);
 });
 Route::post('login', [AuthController::class, 'login']);

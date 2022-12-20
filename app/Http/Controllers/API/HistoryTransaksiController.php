@@ -6,12 +6,27 @@ use App\Http\Controllers\Controller;
 use App\Models\Barang;
 use App\Models\BarangHistoryTransaksi;
 use App\Models\HistoryTransaksi;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class HistoryTransaksiController extends Controller
 {
+    public function index()
+    {
+        return response()->json([
+            'status' => true,
+            'data'  => HistoryTransaksi::with(['barang'])->orderBy('created_at', 'DESC')->get()
+        ]);
+    }
+    public function hariIni()
+    {
+        return response()->json([
+            'status' => true,
+            'data'  => HistoryTransaksi::with(['barang'])->whereDate('created_at', '=', Carbon::today()->toDateString())->get()
+        ]);
+    }
     public function transaksi(Request $request)
     {
         /*
