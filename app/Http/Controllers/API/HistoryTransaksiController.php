@@ -15,9 +15,20 @@ class HistoryTransaksiController extends Controller
 {
     public function index()
     {
+        $data = [
+            'from' => request('from') != null ? Carbon::parse(request('from'))->toDateString() : null,
+            'to' => request('to') != null ? Carbon::parse(request('to'))->toDateString() : null
+        ];
         return response()->json([
             'status' => true,
-            'data'  => HistoryTransaksi::with(['barang'])->orderBy('created_at', 'DESC')->get()
+            'data'  => HistoryTransaksi::with(['barang'])->filterTgl($data)->orderBy('created_at', 'DESC')->get()
+        ]);
+    }
+    public function totalHariIni()
+    {
+        return response()->json([
+            'status'    => true,
+            'data'      => HistoryTransaksi::with(['barang'])->whereDate('created_at', '=', Carbon::today()->toDateString())->sum('total')
         ]);
     }
     public function hariIni()
