@@ -39,5 +39,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/transaksi', [HistoryTransaksiController::class, 'index']);
     Route::get('/hariini', [HistoryTransaksiController::class, 'hariIni']);
     Route::get('/totalhariini', [HistoryTransaksiController::class, 'totalHariIni']);
+    Route::get('/barangmasuk', [HistoryTransaksiController::class, 'barangMasuk']);
 });
 Route::post('login', [AuthController::class, 'login']);

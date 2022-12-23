@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Barang;
 use App\Models\BarangHistoryTransaksi;
+use App\Models\BarangMasuk;
 use App\Models\HistoryTransaksi;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -19,9 +20,13 @@ class HistoryTransaksiController extends Controller
             'from' => request('from') != null ? Carbon::parse(request('from'))->toDateString() : null,
             'to' => request('to') != null ? Carbon::parse(request('to'))->toDateString() : null
         ];
+        $history = HistoryTransaksi::with(['barang'])->filterTgl($data)->orderBy('created_at', 'DESC')->get();
         return response()->json([
             'status' => true,
-            'data'  => HistoryTransaksi::with(['barang'])->filterTgl($data)->orderBy('created_at', 'DESC')->get()
+            'laba' => $history->map(function ($item) {
+                return $item->laba;
+            })->sum(),
+            'data'  => $history,
         ]);
     }
     public function totalHariIni()
@@ -33,9 +38,24 @@ class HistoryTransaksiController extends Controller
     }
     public function hariIni()
     {
+        $history = HistoryTransaksi::with(['barang'])->whereDate('created_at', '=', Carbon::today()->toDateString())->get();
         return response()->json([
             'status' => true,
-            'data'  => HistoryTransaksi::with(['barang'])->whereDate('created_at', '=', Carbon::today()->toDateString())->get()
+            'laba'  => $history->map(function ($item) {
+                return $item->laba;
+            })->sum(),
+            'data'  => $history,
+        ]);
+    }
+    public function barangMasuk()
+    {
+        $data = [
+            'from' => request('from') != null ? Carbon::parse(request('from'))->toDateString() : null,
+            'to' => request('to') != null ? Carbon::parse(request('to'))->toDateString() : null
+        ];
+        return response()->json([
+            'status'    =>  true,
+            'data'  => BarangMasuk::with(['barang'])->filterTgl($data)->get()
         ]);
     }
     public function transaksi(Request $request)
