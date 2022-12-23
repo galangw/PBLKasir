@@ -18,6 +18,7 @@ class BarangMasuk extends Model
         $query->when($tanggal['to'] ?? null, function ($q, $to) {
             $q->where('created_at', '<=', $to);
         });
+        return $query;
     }
     public function barang()
     {
