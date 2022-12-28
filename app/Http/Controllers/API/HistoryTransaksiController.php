@@ -31,9 +31,12 @@ class HistoryTransaksiController extends Controller
     }
     public function totalHariIni()
     {
+        $history = HistoryTransaksi::with(['barang'])->whereDate('created_at', '=', Carbon::today()->toDateString())->get();
         return response()->json([
             'status'    => true,
-            'data'      => HistoryTransaksi::with(['barang'])->whereDate('created_at', '=', Carbon::today()->toDateString())->sum('total')
+            'penjualan' => $history->map(function ($item) {
+                return $item->total;
+            })->sum(),
         ]);
     }
     public function hariIni()
