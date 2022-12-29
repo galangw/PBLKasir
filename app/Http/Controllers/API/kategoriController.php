@@ -59,6 +59,24 @@ class kategoriController extends Controller
      */
     public function update(kategori $kategori, Request $request)
     {
+        $validate = Validator::make($request->all(), [
+
+            'nama'          => 'required',
+
+        ]);
+        $validated = $validate->validated();
+        try {
+            $kategori->update($validated);
+            return response()->json([
+                'status'   =>  true,
+                'message'   =>  "Sukses Update Kategori",
+            ]);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'status'   =>  false,
+                'message'   =>  $e->getMessage(),
+            ]);
+        }
     }
 
     /**
