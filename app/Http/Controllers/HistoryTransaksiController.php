@@ -3,8 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
 use App\Models\Barang;
+use Illuminate\Support\Facades\DB;
+use App\Models\BarangHistoryTransaksi;
+use App\Models\BarangMasuk;
+use App\Models\HistoryTransaksi;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class HistoryTransaksiController extends Controller
 {
@@ -35,5 +40,46 @@ class HistoryTransaksiController extends Controller
                 return Response($output);
             }
         }
+    }
+    public function transaksi(Request $request)
+    {
+
+        $barangId = [];
+        $barangJumlah = [];
+        foreach ($request->data as $item) {
+            $barangId[] = $item['barang_id'];
+            $barangJumlah[] = $item['jumlah'];
+        }
+        DB::beginTransaction();
+        try {
+            $barang = Barang::whereIn('barang_id', $barangId)->get();
+            foreach ($barang as $key => $value) {
+                $history = new HistoryTransaksi();
+                $history->user_id = Auth::user()->id;
+                $history->jumlah = $barangJumlah[$key];
+                $history->total = $value->harga_jual * $barangJumlah[$key];
+                $history->laba = ($value->harga_jual * $barangJumlah[$key]) - ($value->harga_beli * $barangJumlah[$key]);
+                $history->save();
+                $history->barang()->attach($barangId[$key]);
+                $value->stok = $value->stok - $barangJumlah[$key];
+                $value->save();
+            }
+            DB::commit();
+            return response()->json([
+                'status' => true,
+                'message' => "Sukses Melakukan Transaksi"
+            ]);
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+    function getHistory()
+    {
+        $history = HistoryTransaksi::with('barang')->get();
+        return view('transaksi.history', compact('history'));
     }
 }

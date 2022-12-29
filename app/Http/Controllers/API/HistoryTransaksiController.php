@@ -77,6 +77,7 @@ class HistoryTransaksiController extends Controller
             }]
         }
         */
+
         $barangId = [];
         $barangJumlah = [];
         foreach ($request->data as $item) {

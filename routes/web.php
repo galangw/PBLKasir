@@ -43,4 +43,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/caribarang', [barangwebController::class, 'search'])->name('caribarang');
     Route::get('/carisupplier', [supplierController::class, 'search'])->name('carisupplier');
     Route::post('/barang/cetak-barcode', [ProdukController::class, 'cetakBarcode'])->name('produk.cetak_barcode');
+    Route::post('/history-transaksi/transaksi', [HistoryTransaksiController::class, 'transaksi']);
+    Route::get('/lihathistory', [HistoryTransaksiController::class, 'getHistory']);
 });
