@@ -4,7 +4,7 @@
     @if (Auth::user()->role == 'admin')
         <div class="row">
             <div class="col-sm-12 bg-white">
-                <h2 class="mt-2">Daftar Barang</h2>
+                <h2 class="mt-2">Transaksi</h2>
 
 
             </div>
@@ -27,31 +27,50 @@
             </div>
         @endif
         @php
-            dd($history);
+            // dd($history);
         @endphp
-        <table class="table table-bordered bg-white">
+        <div class="row bg-white">
+            <div class="col">
+                <form action="/lihathistory" method="GET">
+                    <label for="tanggal_mulai">Tanggal Mulai:</label>
+                    <input type="date" name="tanggal_mulai" value="{{ request('tanggal_mulai') }}">
+                    <label for="tanggal_akhir">Tanggal Akhir:</label>
+                    <input type="date" name="tanggal_akhir" value="{{ request('tanggal_akhir') }}">
+                    <button type="submit" class="btn btn-galang">Filter</button>
+                </form>
+            </div>
+
+        </div>
+
+
+        <table class="table table-bordered m-0 mt-2 bg-white ">
             <tr>
                 <th style="width: 5%">No</th>
-                <th>Kode Barang</th>
+                {{-- <th>Kode Transaksi</th> --}}
                 <th>Nama Barang</th>
-                <th>Nama Kategori</th>
-                <th>Harga Beli</th>
                 <th>Harga Jual</th>
-                <th>Stok</th>
-                <th>Nama Supplier</th>
+                <th>Harga Beli</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Laba</th>
+                <th>Waktu Transaksi</th>
 
-                <th width="280px">Action</th>
+                {{-- <th width="280px">Action</th> --}}
             </tr>
-            @foreach ($history as $barang)
+            @foreach ($history as $item)
                 <tr>
-                    <th scope="row"></th>
-                    <td>{{ $barang->barang_id }}</td>
-                    {{-- <td>{{ $barang->nama }}</td>
-                    <td>{{ $barang->kategori->nama }}</td>
-                    <td>{{ $barang->harga_beli }}</td>
-                    <td>{{ $barang->harga_jual }}</td>
-                    <td>{{ $barang->stok ?? '' }}</td>
-                    <td>{{ $barang->supplier->nama_supplier }}</td> --}}
+                    <th scope="row">{{ ++$i }}</th>
+                    {{-- <td>{{ $item->history_transaksi_id }}</td> --}}
+                    @foreach ($item['barang'] as $barang)
+                        <td>{{ $barang->nama }}</td>
+                        <td>{{ $barang->harga_jual }}</td>
+                        <td>{{ $barang->harga_beli }}</td>
+                    @endforeach
+                    <td>{{ $item->jumlah }}</td>
+                    <td>{{ $item->total }}</td>
+                    <td>{{ $item->laba }}</td>
+                    <td>{{ $item->updated_at }}</td>
+
 
 
 
@@ -68,7 +87,24 @@
                     </td> --}}
                 </tr>
             @endforeach
+
         </table>
+        <div class="row m-0 mt-1 bg-white">
+            @php
+                $totalterjual = 0;
+                $totallaba = 0;
+                foreach ($history as $item) {
+                    $totalterjual += $item->total;
+                    $totallaba += $item->laba;
+                }
+            @endphp
+            <div class="col-md-3">
+                <h5>Total Penjualan: <b>Rp. {{ $totalterjual }}</b></h5>
+            </div>
+            <div class="col">
+                <h5>Total Laba: <b>Rp. {{ $totallaba }}</b></h5>
+            </div>
+        </div>
         {{-- <div class="row d-flex justify-content-center text-center bg-white">
             {{ $history->links() }}
         </div> --}}

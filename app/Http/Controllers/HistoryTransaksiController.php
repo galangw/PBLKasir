@@ -77,9 +77,33 @@ class HistoryTransaksiController extends Controller
             ]);
         }
     }
-    function getHistory()
+    function getHistory(Request $request)
     {
+        // $history = HistoryTransaksi::with('barang')->get();
+        // return view('transaksi.history', compact('history'))->with('i', (request()->input('page', 1) - 1) * 5,);
+        $tanggal_mulai = $request->input('tanggal_mulai');
+        $tanggal_akhir = $request->input('tanggal_akhir');
+        $tanggal_mulai = Carbon::parse($tanggal_mulai)->toDateString();
+        $tanggal_akhir = Carbon::parse($tanggal_akhir)->toDateString();
+
+        // $q->whereDate('created_at', '=', date('Y-m-d'));
+
+        // ambil data dari database
         $history = HistoryTransaksi::with('barang')->get();
-        return view('transaksi.history', compact('history'));
+
+        // jika tanggal mulai dan tanggal akhir ditentukan, lakukan filter data
+        if ($tanggal_mulai && $tanggal_akhir) {
+            // $history = $history->whereBetween('updated_at', [$tanggal_mulai, $tanggal_akhir]);
+            $history = $history->whereBetween('created_at', [$tanggal_mulai . ' 00:00:00', $tanggal_akhir . ' 23:59:59']);
+
+
+            // $history = HistoryTransaksi::with('barang')->whereDate('updated_at', '>=', $tanggal_mulai)
+            //     ->whereDate('updated_at', '<=', $tanggal_akhir)->get()->toArray();
+            // $history = $history->whereDate('updated_at', '>=', $tanggal_mulai)
+            //     ->whereDate('updated_at', '<=', $tanggal_akhir)->get()->toArray();
+        }
+
+        // tampilkan data di view
+        return view('transaksi.history', compact('history'))->with('i', (request()->input('page', 1) - 1) * 5,);
     }
 }

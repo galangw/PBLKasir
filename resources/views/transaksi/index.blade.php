@@ -39,7 +39,7 @@
                                 <td class="row-data">{{ $barang->harga_jual }}</td>
                                 <td>{{ $barang->stok ?? '' }}</td>
                                 <td><button class="btn btn-galang ms-auto me-auto"
-                                        onclick="tambahKeranjang()">Tambah</button></td>
+                                        onclick="tambahKeranjang(), disableButton(this)">Tambah</button></td>
 
                             </tr>
                         @endforeach
@@ -110,6 +110,7 @@
             </div>
         </div>
     </div>
+    {{-- <button onclick="showPopup()">Tampilkan Popup</button> --}}
 
     <script type="text/javascript">
         $('#search').on('keyup', function() {
@@ -134,6 +135,10 @@
         });
     </script>
     <script>
+        function disableButton(button) {
+            button.disabled = true;
+        }
+
         function tambahKeranjang() {
             var isiTabel = ($('#dynamictable td:nth-child(1)').map(function() {
                 return $(this).text();
@@ -197,17 +202,21 @@
             }
 
 
-            if (isiTabel.indexOf(kodebarang) !== -1) {
-                // alert('Produk Sudah Ada, Silahkan Tambah Total Barang');
-                alert('Produk Sudah Ada, Silahkan Tambah Total Barang');
-            }
-            if (isiTabel.indexOf(kodebarang) === -1) {
+            // if (isiTabel.indexOf(kodebarang) !== -1) {
 
+            //     // alert('Produk Sudah Ada, Silahkan Tambah Total Barang');
+            // }
+            // if (isiTabel.indexOf(kodebarang) === -1) {
+
+            //     tambahBarang();
+
+
+            // }
+            if (isiTabel.includes(kodebarang)) {
+
+            } else {
                 tambahBarang();
-
-
             }
-
 
         }
         $("#dynamictable").on('click', '.btnDelete', function() {
@@ -351,6 +360,7 @@
             for (var i = 0; i < rows.length; i++) {
                 // Ambil elemen-elemen yang diperlukan dari baris tersebut
                 var kodeBarang = rows[i].querySelector(".kodebarang").textContent;
+                // var kodeBarang = rows[i].querySelector(".kodebarang").value;
                 var jumlah = rows[i].querySelector(".totalBarang").value;
 
                 // Tambahkan data ke objek data
@@ -364,6 +374,8 @@
             console.log(data);
 
             const csrfToken = document.head.querySelector("[name~=csrf-token][content]").content;
+            // const table = document.querySelector("#dynamictable");
+            // const rows = table.querySelectorAll("tr");
 
 
             Swal.fire({
@@ -375,7 +387,7 @@
                 cancelButtonText: 'Batal'
             }).then((result) => {
                 if (result.value) {
-                    fetch('http://pblkasir.test/history-transaksi/transaksi', {
+                    fetch('/history-transaksi/transaksi', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -388,7 +400,7 @@
                             console.log(result);
                             Swal.fire({
                                 title: 'Berhasil',
-                                text: 'Data berhasil disimpan',
+                                text: `<table>${message}</table>`,
                                 icon: 'success',
                                 showCancelButton: false,
                                 confirmButtonText: 'OK',
@@ -398,6 +410,30 @@
                                     window.location.reload();
                                 }
                             });
+
+                            // const popup = window.open("", "",
+                            //     "height=400, width=500, background-color=white, resizable=no, scrollbars=no, menubar=no, toolbar=no"
+                            // );
+                            // popup.document.write("<html><head><style>");
+                            // popup.document.write(
+                            //     "body {display: flex; align-items: center; justify-content: center; flex-direction: column;}"
+                            // );
+                            // popup.document.write(
+                            //     "button {font-size: 18px; cursor: pointer; border: none; background: none; outline: none;}"
+                            // );
+                            // popup.document.write(
+                            //     "img {height: 50px; width: 50px; border-radius: 50%; margin: 0; padding: 0;}"
+                            // );
+                            // popup.document.write("</style></head><body>");
+                            // popup.document.write("<h1>Halaman Popup</h1>");
+                            // popup.document.write(
+                            //     "<table>" + message + "</table>"
+                            // );
+                            // popup.document.write(
+                            //     "<button onclick='window.close()'><img src='https://i.imgur.com/lLZ7zU9.png' alt='Close Icon'> Close</button>"
+                            // );
+                            // popup.document.write("</body></html>");
+
                         })
                         .catch((error) => {
                             console.error(error);
@@ -440,5 +476,45 @@
             //     });
 
         }
+        const table = document.querySelector("#dynamictable");
+        const rows = table.querySelectorAll("tr");
+        let message = "";
+
+        for (const row of rows) {
+            const cells = row.querySelectorAll("td");
+            let rowMessage = "";
+
+            for (const cell of cells) {
+                if (cell.getAttribute("data-override") === "barang_id") {
+                    rowMessage += `<td>${cell.textContent}</td>`;
+                } else if (cell.getAttribute("data-override") === "jumlah") {
+                    rowMessage += `<td>${cell.textContent}</td>`;
+                } else {
+                    rowMessage += `<td>${cell.textContent}</td>`;
+                }
+            }
+
+            message += `<tr>${rowMessage}</tr>`;
+        }
+
+        // function showPopup() {
+        //     const popup = window.open("", "",
+        //         "height=400, width=500, background-color=white, resizable=no, scrollbars=no, menubar=no, toolbar=no");
+        //     popup.document.write("<html><head><style>");
+        //     popup.document.write(
+        //         "body {display: flex; align-items: center; justify-content: center; flex-direction: column;}");
+        //     popup.document.write(
+        //         "button {font-size: 18px; cursor: pointer; border: none; background: none; outline: none;}");
+        //     popup.document.write("img {height: 50px; width: 50px; border-radius: 50%; margin: 0; padding: 0;}");
+        //     popup.document.write("</style></head><body>");
+        //     popup.document.write("<h1>Halaman Popup</h1>");
+        //     popup.document.write(
+        //         "<table>" + message + "</table>"
+        //     );
+        //     popup.document.write(
+        //         "<button onclick='window.close()'><img src='https://i.imgur.com/lLZ7zU9.png' alt='Close Icon'> Close</button>"
+        //     );
+        //     popup.document.write("</body></html>");
+        // }
     </script>
 @endsection

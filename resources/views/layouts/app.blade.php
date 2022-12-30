@@ -62,9 +62,9 @@
                         <span class="nav_name">Supplier</span>
                     </a>
 
-                    <a href="#" class="nav_link">
-                        <i class='bx bx-bar-chart-alt-2 nav_icon'> </i>
-                        <span class="nav_name">#</span>
+                    <a href="/lihathistory" class="nav_link {{ request()->is('lihathistory*') ? 'active' : '' }} ">
+                        <i class='bx bx-history nav_icon'></i>
+                        <span class="nav_name">Lihat history</span>
                     </a>
                 </div>
             </div>
