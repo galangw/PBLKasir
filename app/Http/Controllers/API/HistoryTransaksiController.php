@@ -18,7 +18,8 @@ class HistoryTransaksiController extends Controller
     {
         $data = [
             'from' => request('from') != null ? Carbon::parse(request('from'))->toDateString() : null,
-            'to' => request('to') != null ? Carbon::parse(request('to'))->toDateString() : null
+            'to' => request('to') != null ? Carbon::parse(request('to'))->toDateString() : null,
+            'kategori' => request('kategori') ?? null
         ];
         $history = HistoryTransaksi::with(['barang'])->filterTgl($data)->orderBy('created_at', 'DESC')->get();
         return response()->json([
@@ -54,11 +55,12 @@ class HistoryTransaksiController extends Controller
     {
         $data = [
             'from' => request('from') != null ? Carbon::parse(request('from'))->toDateString() : null,
-            'to' => request('to') != null ? Carbon::parse(request('to'))->toDateString() : null
+            'to' => request('to') != null ? Carbon::parse(request('to'))->toDateString() : null,
+            'kategori' => request('kategori') ?? null
         ];
         return response()->json([
             'status'    =>  true,
-            'data'  => BarangMasuk::with(['barang'])->filterTgl($data)->get()
+            'data'  => BarangMasuk::with(['barang'])->filterTgl($data)->orderBy('created_at', 'DESC')->get()
         ]);
     }
     public function transaksi(Request $request)

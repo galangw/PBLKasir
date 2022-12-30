@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,10 +22,12 @@ class Barang extends Model
     //     'harga_jual',
     //     'stok'
     // ];
-    public function scopeCari($query, $kode, $nama)
+    public function scopeCari($query, $kategori, $nama)
     {
-        $query->when($kode ?? null, function ($q, $kode) {
-            $q->where('barang_id', $kode);
+        $query->when($kategori ?? null, function ($q, $kategori) {
+            $q->whereHas('kategori', function (Builder $query) use ($kategori) {
+                $query->where('nama', '=', $kategori);
+            });
         });
         $query->when($nama ?? null, function ($q, $nama) {
             $q->where('nama', 'LIKE', "%" . $nama . "%");

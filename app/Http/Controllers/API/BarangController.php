@@ -14,7 +14,7 @@ class BarangController extends Controller
     {
         return response()->json([
             'status' => true,
-            'data'  => Barang::with(['kategori', 'supplier', 'barangMasuk'])->cari(request('kode'), request('nama'))->orderBy('stok', 'ASC')->get()
+            'data'  => Barang::with(['kategori', 'supplier', 'barangMasuk'])->cari(request('kategori'), request('nama'))->orderBy('stok', 'ASC')->get()
         ]);
     }
     public function tambahBarang(Request $request)
