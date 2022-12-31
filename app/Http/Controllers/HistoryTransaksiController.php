@@ -93,7 +93,9 @@ class HistoryTransaksiController extends Controller
         //     return $query->whereBetween('created_at', [$tanggal_mulai, $tanggal_akhir]);
         // })
         //     ->get();
-        $history = HistoryTransaksi::with('barang')->orderBy('created_at', 'DESC')->get();
+        $history = HistoryTransaksi::with(['barang' => function ($q) {
+            $q->withTrashed();
+        }])->orderBy('created_at', 'DESC')->get();
         // $history = $history->whereBetween('created_at', [$tanggal_mulai . ' 00:00:00', $tanggal_akhir . ' 23:59:59']);
 
         // jika tanggal mulai dan tanggal akhir ditentukan, lakukan filter data

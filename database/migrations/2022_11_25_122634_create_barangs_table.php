@@ -27,6 +27,7 @@ return new class extends Migration
             $table->integer('stok')->unsigned();
             $table->timestamps();
             $table->primary('barang_id');
+            $table->softDeletes();
         });
     }
 

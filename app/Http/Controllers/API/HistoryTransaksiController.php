@@ -21,7 +21,11 @@ class HistoryTransaksiController extends Controller
             'to' => request('to') != null ? Carbon::parse(request('to'))->toDateString() : null,
             'kategori' => request('kategori') ?? null
         ];
-        $history = HistoryTransaksi::with(['barang'])->filterTgl($data)->orderBy('created_at', 'DESC')->get();
+        $history = HistoryTransaksi::with(['barang' => function ($q) {
+            $q->withTrashed();
+        }, 'user' => function ($q) {
+            $q->withTrashed();
+        }])->filterTgl($data)->orderBy('created_at', 'DESC')->get();
         return response()->json([
             'status' => true,
             'laba' => $history->map(function ($item) {
@@ -32,7 +36,9 @@ class HistoryTransaksiController extends Controller
     }
     public function totalHariIni()
     {
-        $history = HistoryTransaksi::with(['barang'])->whereDate('created_at', '=', Carbon::today()->toDateString())->get();
+        $history = HistoryTransaksi::with(['barang' => function ($q) {
+            $q->withTrashed();
+        }])->whereDate('created_at', '=', Carbon::today()->toDateString())->get();
         return response()->json([
             'status'    => true,
             'penjualan' => $history->map(function ($item) {
@@ -42,7 +48,11 @@ class HistoryTransaksiController extends Controller
     }
     public function hariIni()
     {
-        $history = HistoryTransaksi::with(['barang'])->whereDate('created_at', '=', Carbon::today()->toDateString())->get();
+        $history = HistoryTransaksi::with(['barang' => function ($q) {
+            $q->withTrashed();
+        }, 'user' => function ($q) {
+            $q->withTrashed();
+        }])->whereDate('created_at', '=', Carbon::today()->toDateString())->get();
         return response()->json([
             'status' => true,
             'laba'  => $history->map(function ($item) {
@@ -60,7 +70,9 @@ class HistoryTransaksiController extends Controller
         ];
         return response()->json([
             'status'    =>  true,
-            'data'  => BarangMasuk::with(['barang'])->filterTgl($data)->orderBy('created_at', 'DESC')->get()
+            'data'  => BarangMasuk::with(['barang' => function ($q) {
+                $q->withTrashed();
+            }])->filterTgl($data)->orderBy('created_at', 'DESC')->get()
         ]);
     }
     public function transaksi(Request $request)
