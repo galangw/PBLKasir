@@ -67,7 +67,8 @@ class HistoryTransaksiController extends Controller
             DB::commit();
             return response()->json([
                 'status' => true,
-                'message' => "Sukses Melakukan Transaksi"
+                'message' => "Sukses Melakukan Transaksi",
+                'data' => $request->data
             ]);
         } catch (\Throwable $e) {
             DB::rollBack();
@@ -86,24 +87,23 @@ class HistoryTransaksiController extends Controller
         $tanggal_mulai = Carbon::parse($tanggal_mulai)->toDateString();
         $tanggal_akhir = Carbon::parse($tanggal_akhir)->toDateString();
 
-        // $q->whereDate('created_at', '=', date('Y-m-d'));
 
         // ambil data dari database
-        $history = HistoryTransaksi::with('barang')->get();
+        // $history = HistoryTransaksi::with('barang')->when($tanggal_mulai, function ($query) use ($tanggal_mulai, $tanggal_akhir) {
+        //     return $query->whereBetween('created_at', [$tanggal_mulai, $tanggal_akhir]);
+        // })
+        //     ->get();
+        $history = HistoryTransaksi::with('barang')->orderBy('created_at', 'DESC')->get();
+        // $history = $history->whereBetween('created_at', [$tanggal_mulai . ' 00:00:00', $tanggal_akhir . ' 23:59:59']);
 
         // jika tanggal mulai dan tanggal akhir ditentukan, lakukan filter data
         if ($tanggal_mulai && $tanggal_akhir) {
-            // $history = $history->whereBetween('updated_at', [$tanggal_mulai, $tanggal_akhir]);
             $history = $history->whereBetween('created_at', [$tanggal_mulai . ' 00:00:00', $tanggal_akhir . ' 23:59:59']);
-
-
-            // $history = HistoryTransaksi::with('barang')->whereDate('updated_at', '>=', $tanggal_mulai)
-            //     ->whereDate('updated_at', '<=', $tanggal_akhir)->get()->toArray();
-            // $history = $history->whereDate('updated_at', '>=', $tanggal_mulai)
-            //     ->whereDate('updated_at', '<=', $tanggal_akhir)->get()->toArray();
+        } else if ($tanggal_mulai && $tanggal_akhir == null) {
+            $history = HistoryTransaksi::with('barang')->orderBy('created_at', 'DESC')->get();
         }
 
         // tampilkan data di view
-        return view('transaksi.history', compact('history'))->with('i', (request()->input('page', 1) - 1) * 5,);
+        return view('transaksi.history', compact('history', 'tanggal_mulai', 'tanggal_akhir'))->with('i', (request()->input('page', 1) - 1) * 5,);
     }
 }

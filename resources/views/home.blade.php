@@ -8,7 +8,7 @@
 
                     <div class="card-body btn-galang" style="">
                         <h5 class="card-title">Total Barang</h5>
-                        <h2>{{ $totalBarang }}</h2>
+                        <h3>{{ $totalBarang }}</h2>
                     </div>
                     <div class="card-footer btn-galang card-dash"><a href="/barang">Selengkapnya</a></div>
 
@@ -17,22 +17,34 @@
                 <div class="col bg-white mt-4 ">
 
                     <div class="card-body btn-galang" style="">
-                        <h5 class="card-title">Total Produk</h5>
-                        <h2>99</h2>
+                        <h5 class="card-title">Transaksi Hari Ini</h5>
+                        <h3>{{ number_format($history_transaksi) }}</h2>
                     </div>
-                    <div class="card-footer btn-galang card-dash"><a href="http://">Selengkapnya</a></div>
+                    <div class="card-footer btn-galang card-dash"><a href="/lihathistory">Selengkapnya</a></div>
+
+                </div>
+
+
+                <div class="col bg-white mt-4 ">
+
+                    <div class="card-body btn-galang" style="">
+                        <h5 class="card-title">Penjualan Hari Ini</h5>
+                        <h3>Rp. {{ number_format($total_today, 0, ',', '.') }}</h2>
+                    </div>
+                    <div class="card-footer btn-galang card-dash"><a href="/lihathistory">Selengkapnya</a></div>
 
                 </div>
                 <div class="col bg-white mt-4 ">
 
                     <div class="card-body btn-galang" style="">
-                        <h5 class="card-title">Total Produk</h5>
-                        <h2>88</h2>
+                        <h5 class="card-title">Laba Hari Ini</h5>
+                        <h3>Rp. {{ number_format($laba_today, 0, ',', '.') }}</h2>
                     </div>
-                    <div class="card-footer btn-galang card-dash"><a href="http://">Selengkapnya</a></div>
+                    <div class="card-footer btn-galang card-dash"><a href="/lihathistory">Selengkapnya</a></div>
 
                 </div>
             </div>
+
         </div>
     @else
         <script>

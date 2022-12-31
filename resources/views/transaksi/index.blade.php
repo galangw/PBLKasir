@@ -362,11 +362,17 @@
                 var kodeBarang = rows[i].querySelector(".kodebarang").textContent;
                 // var kodeBarang = rows[i].querySelector(".kodebarang").value;
                 var jumlah = rows[i].querySelector(".totalBarang").value;
+                var namabarang = rows[i].querySelector(".namabarang").textContent;
+                var hargabarang = rows[i].querySelector(".harga").textContent;
+                var totalharga = rows[i].querySelector("span.total").textContent;
 
                 // Tambahkan data ke objek data
                 data.data.push({
                     "barang_id": kodeBarang,
-                    "jumlah": jumlah
+                    "nama_barang": namabarang,
+                    "jumlah": jumlah,
+                    "harga": hargabarang,
+                    "totalharga": totalharga,
                 });
             }
 
@@ -398,19 +404,53 @@
                         .then((response) => response.json())
                         .then((result) => {
                             console.log(result);
-                            Swal.fire({
-                                title: 'Berhasil',
-                                text: `<table>${message}</table>`,
-                                icon: 'success',
-                                showCancelButton: false,
-                                confirmButtonText: 'OK',
-                                allowOutsideClick: false
-                            }).then((result) => {
-                                if (result.value) {
-                                    window.location.reload();
-                                }
-                            });
+                            // Swal.fire({
+                            //     title: 'Berhasil',
+                            //     text: `<table>${message}</table>`,
+                            //     icon: 'success',
+                            //     showCancelButton: false,
+                            //     confirmButtonText: 'OK',
+                            //     allowOutsideClick: false
+                            // })
+                            // .then((result) => {
+                            //     if (result.value) {
+                            //         window.location.reload();
+                            //     }
+                            // });
+                            var data = result;
+                            var output = '';
+                            var totalsemua = 0;
 
+                            for (var i = 0; i < data.data.length; i++) {
+                                // output += 'Barang ID: ' + data.data[i].barang_id + '\n';
+                                output += '<tr><td>' + data.data[i].nama_barang + '</td>';
+                                output += '<td>' + data.data[i].jumlah + '</td>';
+                                output += '<td>' + data.data[i].harga + '</td>';
+                                output += '<td>' + data.data[i].totalharga + '</td></tr>';
+                                var totalsemua = totalsemua + parseInt(data.data[i].totalharga);
+                            }
+
+                            var today = new Date();
+                            var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today
+                                .getDate();
+                            var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                            var dateTime = date + ' ' + time;
+                            var printWindow = window.open('', '', 'height=400,width=400px');
+                            printWindow.document.write(
+                                '<html><head><style> table, th, td {border:1px solid black;border-collapse: collapse;}</style></head><body><center><h3 style="margin-bottom:0;">Tyas Grosir</h3><p style="margin-top:0;">Jl. Bayatrejo, Wringinpitu</p>---------------------------------------------------------<br>' +
+                                dateTime +
+                                '<br>--------------------------------------------------------<table><tr><th>Nama Barang</th><th>Jumlah</th><th>Harga</th><th>Total</th></tr>'
+                            );
+                            printWindow.document.write(output);
+                            printWindow.document.write(
+                                '</table>');
+                            printWindow.document.write('<br>Total Bayar : <b>' + totalsemua +
+                                '<h5>Terimakasih !</h5></center></body></html>');
+                            printWindow.document.close();
+                            printWindow.focus();
+                            printWindow.print();
+                            window.location.reload();
+                            // printWindow.close();
                             // const popup = window.open("", "",
                             //     "height=400, width=500, background-color=white, resizable=no, scrollbars=no, menubar=no, toolbar=no"
                             // );

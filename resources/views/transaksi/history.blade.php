@@ -103,7 +103,10 @@
             </div>
             <div class="col">
                 <h5>Total Laba: <b>Rp. {{ $totallaba }}</b></h5>
+
+
             </div>
+
         </div>
         {{-- <div class="row d-flex justify-content-center text-center bg-white">
             {{ $history->links() }}
