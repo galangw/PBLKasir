@@ -28,13 +28,17 @@ class HistoryTransaksiController extends Controller
                 ->orWhere('barang_id', 'like', "%" . $request->search . "%")
                 ->paginate(5);
             // $barangs = DB::table('barangs')->where('nama', 'LIKE', '%' . $request->search . "%")->get();
+
             if ($barangs) {
+                $no = 1;
                 foreach ($barangs as  $barang) {
-                    $output .= '<tr>' .
-                        '<td>' . $barang->barang_id . '</td>' .
-                        '<td>' . $barang->nama . '</td>' .
-                        '<td>' . $barang->harga_jual . '</td>' .
-                        '<td>' . $barang->stok . '</td>' .
+                    $output .= '<tr id="' . $no++ . '">' .
+                        '<td class="row-data" >' . $barang->barang_id . '</td>' .
+                        '<td class="row-data">' . $barang->nama . '</td>' .
+                        '<td class="row-data">' . $barang->harga_jual . '</td>' .
+                        '<td class="row-data">' . $barang->stok . '</td>' .
+                        '<td><button class="btn btn-galang ms-auto me-auto"
+                        onclick="tambahKeranjang(), disableButton(this)">Tambah</button></td>' .
                         '</tr>';
                 }
                 return Response($output);

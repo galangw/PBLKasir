@@ -6,6 +6,7 @@ use App\Http\Controllers\kategoriController;
 use App\Http\Controllers\produkController;
 use App\Http\Controllers\HistoryTransaksiController;
 use App\Http\Controllers\supplierController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -38,6 +39,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('kategori', kategoriController::class);
     Route::resource('supplier', supplierController::class);
     Route::resource('transaksi', HistoryTransaksiController::class);
+    Route::resource('user', UserController::class);
     Route::get('/search', [HistoryTransaksiController::class, 'search'])->name('search');
     Route::get('/carikategori', [kategoriController::class, 'search'])->name('carikategori');
     Route::get('/caribarang', [barangwebController::class, 'search'])->name('caribarang');

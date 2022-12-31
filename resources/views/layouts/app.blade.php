@@ -66,6 +66,10 @@
                         <i class='bx bx-history nav_icon'></i>
                         <span class="nav_name">Lihat history</span>
                     </a>
+                    <a href="/user" class="nav_link {{ request()->is('user*') ? 'active' : '' }} ">
+                        <i class='bx bx-user nav_icon'></i>
+                        <span class="nav_name">Karyawan</span>
+                    </a>
                 </div>
             </div>
 

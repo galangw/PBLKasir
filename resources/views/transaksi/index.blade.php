@@ -17,7 +17,7 @@
                 <input type="text" name="search" class="form-control w-75 d-inline" id="search"
                     placeholder="Masukkan Nama Atau Kode Barang">
 
-                <table class="table table-bordered table-hover mt-3">
+                <table id="tablebarang" class="table table-bordered table-hover mt-3 listbarang">
                     <thead>
                         <tr>
                             <th>Kode Barang</th>
@@ -122,7 +122,7 @@
                     'search': $value
                 },
                 success: function(data) {
-                    $('tbody').html(data);
+                    $('#tablebarang tbody').html(data);
                 }
             });
         })
@@ -477,6 +477,15 @@
                         })
                         .catch((error) => {
                             console.error(error);
+
+                            Swal.fire({
+                                title: 'Maaf Transaksi Gagal',
+                                text: 'Mohon Periksa Kembali Data Anda',
+                                icon: 'error',
+                                showCancelButton: false,
+                                confirmButtonText: 'OK',
+                                cancelButtonText: 'Batal'
+                            })
                             // tampilkan pesan error di sini
                         });
                 }
