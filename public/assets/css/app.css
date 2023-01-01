@@ -206,3 +206,24 @@ a {
     background-color: transparent;
     color: #3F0071;
 }
+.card{
+    border: 3px solid #3F0071;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+}
+.icon-link{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.icon-link i{
+    font-size: 50px;
+    color: #3F0071;
+}
+.icon-link a{
+    font-size: 14px;
+    color: #3F0071;
+    font-weight: bold;
+    margin: 1px;
+}

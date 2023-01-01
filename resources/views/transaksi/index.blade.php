@@ -8,10 +8,10 @@
     <div class="row">
         <div class="col-md-5 bg-white">
 
-            <h2 class="mt-2">Daftar Barang</h2>
 
-            <div class="panel-body">
 
+            <div class="panel-body card">
+                <h2 class="mt-2">Daftar Barang</h2>
                 {{-- <input type="text" class="form-controller" id="search" name="search"
                         placeholder="Nama Atau Kode Barang"></input> --}}
                 <input type="text" name="search" class="form-control w-75 d-inline" id="search"
@@ -37,7 +37,7 @@
                                 <td class="row-data">{{ $barang->barang_id }}</td>
                                 <td class="row-data">{{ $barang->nama }}</td>
                                 <td class="row-data">{{ $barang->harga_jual }}</td>
-                                <td>{{ $barang->stok ?? '' }}</td>
+                                <td id="stok-tablebarang">{{ $barang->stok ?? '' }}</td>
                                 <td><button class="btn btn-galang ms-auto me-auto"
                                         onclick="tambahKeranjang(), disableButton(this)">Tambah</button></td>
 
@@ -191,30 +191,16 @@
                     '<input type="number" min="1" value="1" name="total" id="totalBarang" class="form-control totalBarang" >';
                 row.insertCell(5).innerHTML =
                     '<span class="total">' + harga + '</span>';
-                // row.insertCell(4).innerHTML =
-                //     '<div class="quantity "> <input type="button" value="-" class="minus" field="quantity"><input type="number" id="quantity" name="quantity" value="1" class="qty" style="width:25%" /><input type="button" value="+" class="plus" field="quantity"> </div>';
-                // var total = harga * $('#totalBarang').val();
-
-                // row.insertCell(5).innerHTML =
-                //     total;
 
 
             }
 
 
-            // if (isiTabel.indexOf(kodebarang) !== -1) {
 
-            //     // alert('Produk Sudah Ada, Silahkan Tambah Total Barang');
-            // }
-            // if (isiTabel.indexOf(kodebarang) === -1) {
-
-            //     tambahBarang();
-
-
-            // }
             if (isiTabel.includes(kodebarang)) {
 
             } else {
+                // if
                 tambahBarang();
             }
 
