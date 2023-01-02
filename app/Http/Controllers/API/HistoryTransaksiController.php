@@ -31,6 +31,9 @@ class HistoryTransaksiController extends Controller
             'laba' => $history->map(function ($item) {
                 return $item->laba;
             })->sum(),
+            'penjualan' => $history->map(function ($item) {
+                return $item->total;
+            })->sum(),
             'data'  => $history,
         ]);
     }
@@ -57,6 +60,9 @@ class HistoryTransaksiController extends Controller
             'status' => true,
             'laba'  => $history->map(function ($item) {
                 return $item->laba;
+            })->sum(),
+            'penjualan' => $history->map(function ($item) {
+                return $item->total;
             })->sum(),
             'data'  => $history,
         ]);
