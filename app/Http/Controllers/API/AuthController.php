@@ -49,7 +49,6 @@ class AuthController extends Controller
             'email'     =>  'required',
             'password'  =>  'required',
             'role'      =>  'required',
-
         ]);
         $validated = $validate->validated();
         $validated['password'] = Hash::make($validated['password']);
@@ -91,5 +90,43 @@ class AuthController extends Controller
             'status'    =>  true,
             'data'   =>  User::where('role', 'user')->get()
         ], 200);
+    }
+    public function updateKaryawan(User $user, Request $request)
+    {
+        $validate = Validator::make($request->all(), [
+            'name'      =>  'required',
+            'email'     =>  'required',
+        ]);
+        $validated = $validate->validated();
+        if ($request->has('password')) {
+            $validated['password'] = Hash::make($request->password);
+        }
+        try {
+            $user->update($validated);
+            return response()->json([
+                'status'    =>  'sukses',
+                'message'   =>  'Sukes update Karyawan',
+            ], 200);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'status'    =>  'gagal',
+                'message'   =>  $e->getMessage()
+            ]);
+        }
+    }
+    public function hapusKaryawan(User $user)
+    {
+        try {
+            $user->delete();
+            return response()->json([
+                'status'   =>  true,
+                'message'   =>  "Sukses hapus karyawan",
+            ]);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'status'   =>  false,
+                'message'   =>  $e->getMessage(),
+            ]);
+        }
     }
 }

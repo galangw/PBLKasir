@@ -40,5 +40,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/hariini', [HistoryTransaksiController::class, 'hariIni']);
     Route::get('/totalhariini', [HistoryTransaksiController::class, 'totalHariIni']);
     Route::get('/barangmasuk', [HistoryTransaksiController::class, 'barangMasuk']);
+    Route::put('/updatekaryawan/{user}', [AuthController::class, 'updateKaryawan']);
+    Route::delete('/hapusKaryawan/{user}', [AuthController::class, 'hapusKaryawan']);
 });
 Route::post('login', [AuthController::class, 'login']);
