@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 Route::get('/verifikasi/{email}', [AuthController::class, 'verifikasi']);
 Auth::routes();

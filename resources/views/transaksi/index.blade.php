@@ -390,19 +390,7 @@
                         .then((response) => response.json())
                         .then((result) => {
                             console.log(result);
-                            // Swal.fire({
-                            //     title: 'Berhasil',
-                            //     text: `<table>${message}</table>`,
-                            //     icon: 'success',
-                            //     showCancelButton: false,
-                            //     confirmButtonText: 'OK',
-                            //     allowOutsideClick: false
-                            // })
-                            // .then((result) => {
-                            //     if (result.value) {
-                            //         window.location.reload();
-                            //     }
-                            // });
+
                             var data = result;
                             var output = '';
                             var totalsemua = 0;
